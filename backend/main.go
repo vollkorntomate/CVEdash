@@ -1,7 +1,8 @@
 package main
 
 func main() {
-	DB = NewDB("test.db")
+	Config = LoadConfig("config.json")
+	DB = NewDB(Config.DBFilePath)
 	DB.InitDB()
 
 	ImportNewEntries()

@@ -28,14 +28,12 @@ func ImportNewEntries() {
 	resultsPerPage := 0
 	total := 1
 	for offset := 0; offset < total; offset += resultsPerPage {
-		log.Println("Round offset ", offset)
 		reqParams.StartIndex = offset
 		var response *NVDResponse
 		response, err = makeNVDRequest(reqParams)
 		if err != nil {
 			log.Println("Import of new entries failed:", err)
 		}
-		log.Println("response: ", response.TotalResults, response.ResultsPerPage)
 		resultsPerPage = response.ResultsPerPage
 		total = response.TotalResults
 
@@ -43,7 +41,6 @@ func ImportNewEntries() {
 		for i := 0; i < resultsPerPage; i++ {
 			minimal[i] = response.Vulnerabilities[i].CVE.ToMinimalCVEData()
 		}
-		log.Println("decoded len", len(minimal))
 
 		DB.SaveBatch(minimal)
 
@@ -67,7 +64,6 @@ func makeNVDRequest(params NVDRequestParams) (*NVDResponse, error) {
 	}
 
 	url := baseURL + "?" + query.Encode()
-	log.Println("Request to ", url)
 	response, err := http.Get(url)
 	if err != nil {
 		log.Println("Could not get CVEs from NVD", err)

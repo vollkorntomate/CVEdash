@@ -18,7 +18,7 @@ type Database struct {
 func NewDB(path string) Database {
 	db, err := gorm.Open(sqlite.Open(path), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Could not open database connection to", path)
+		log.Fatalln("Could not open database connection to", path)
 	}
 	return Database{DB: db}
 }
