@@ -44,7 +44,7 @@ func ImportNewEntries() {
 
 		DB.SaveBatch(minimal)
 
-		time.Sleep(6 * time.Second)
+		apiSleep()
 	}
 
 	if err == nil {
@@ -64,11 +64,14 @@ func makeNVDRequest(params NVDRequestParams) (*NVDResponse, error) {
 	}
 
 	url := baseURL + "?" + query.Encode()
-	response, err := http.Get(url)
+	req, _ := http.NewRequest(http.MethodGet, url, nil)
+	setAPIKeyHeader(req)
+	response, err := HTTPClient.Do(req)
 	if err != nil {
 		log.Println("Could not get CVEs from NVD", err)
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	ret := NVDResponse{}
 	jsonParser := json.NewDecoder(response.Body)
@@ -79,4 +82,18 @@ func makeNVDRequest(params NVDRequestParams) (*NVDResponse, error) {
 	}
 
 	return &ret, nil
+}
+
+func setAPIKeyHeader(req *http.Request) {
+	if Config.NVDAPIKey != "" {
+		req.Header.Set("apiKey", Config.NVDAPIKey)
+	}
+}
+
+func apiSleep() {
+	if Config.NVDAPIKey != "" {
+		time.Sleep(1 * time.Second)
+	} else {
+		time.Sleep(6 * time.Second)
+	}
 }
