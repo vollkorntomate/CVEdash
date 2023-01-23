@@ -1,4 +1,4 @@
-package main
+package data
 
 import (
 	"encoding/json"
@@ -7,6 +7,9 @@ import (
 	"net/url"
 	"strconv"
 	"time"
+
+	"vollkorntomate.de/cvedash/internal/config"
+	"vollkorntomate.de/cvedash/internal/tools"
 )
 
 type NVDRequestParams struct {
@@ -15,14 +18,16 @@ type NVDRequestParams struct {
 	StartIndex       int
 }
 
+var HTTPClient http.Client
+
 func ImportNewEntries() {
 	reqParams := NVDRequestParams{}
 	lastUpdate := DB.GetLastNVDUpdate()
 	log.Println("Starting import of new entries. Last update was", lastUpdate.LastUpdate)
 	currentTime := time.Now()
 	if !lastUpdate.LastUpdate.IsZero() && lastUpdate.Version == DB_VERSION {
-		reqParams.LastModStartDate = FormatISODate(lastUpdate.LastUpdate)
-		reqParams.LastModEndDate = FormatISODate(currentTime)
+		reqParams.LastModStartDate = tools.FormatISODate(lastUpdate.LastUpdate)
+		reqParams.LastModEndDate = tools.FormatISODate(currentTime)
 	}
 
 	var err error
@@ -89,13 +94,13 @@ func makeNVDRequest(params NVDRequestParams) (*NVDResponse, error) {
 }
 
 func setAPIKeyHeader(req *http.Request) {
-	if Config.NVDAPIKey != "" {
-		req.Header.Set("apiKey", Config.NVDAPIKey)
+	if config.Config.NVDAPIKey != "" {
+		req.Header.Set("apiKey", config.Config.NVDAPIKey)
 	}
 }
 
 func apiSleep() {
-	if Config.NVDAPIKey != "" {
+	if config.Config.NVDAPIKey != "" {
 		time.Sleep(1 * time.Second)
 	} else {
 		time.Sleep(6 * time.Second)

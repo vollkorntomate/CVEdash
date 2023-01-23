@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"encoding/json"
@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"vollkorntomate.de/cvedash/internal/data"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -24,16 +26,16 @@ func RunAPIServer() {
 	router.Get("/latest/{page:[0-9]+}", getLatestPublishedCVEs)
 	router.Get("/stats/{duration:24h|7d|30d|1y|ytd}", getStats)
 
-	log.Println("Starting API server")
-	go http.ListenAndServe(":3000", router)
+	log.Println("Starting API server on http://localhost:8077")
+	go http.ListenAndServe(":8077", router)
 }
 
 func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
 	page, _ := strconv.Atoi(chi.URLParam(req, "page"))
 	offset := (page - 1) * apiResultsPerPage
 
-	var cves []MinimalCVEData
-	DB.DB.Order("published DESC").Limit(apiResultsPerPage).Offset(offset).Find(&cves)
+	var cves []data.MinimalCVEData
+	data.DB.DB.Order("published DESC").Limit(apiResultsPerPage).Offset(offset).Find(&cves)
 
 	writeJSONResponse(response, cves)
 }
@@ -69,9 +71,9 @@ func UpdateStateCache() {
 	timeAgo1y := time.Date(now.Year()-1, now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second(), now.Nanosecond(), time.UTC)
 	timeAgoYTD := time.Date(now.Year(), time.January, 1, 0, 0, 0, 0, time.UTC)
 
-	StatsCache.Set("24h", DB.GetStats(timeAgo24h))
-	StatsCache.Set("7d", DB.GetStats(timeAgo7d))
-	StatsCache.Set("30d", DB.GetStats(timeAgo30d))
-	StatsCache.Set("1y", DB.GetStats(timeAgo1y))
-	StatsCache.Set("ytd", DB.GetStats(timeAgoYTD))
+	StatsCache.Set("24h", data.DB.GetStats(timeAgo24h))
+	StatsCache.Set("7d", data.DB.GetStats(timeAgo7d))
+	StatsCache.Set("30d", data.DB.GetStats(timeAgo30d))
+	StatsCache.Set("1y", data.DB.GetStats(timeAgo1y))
+	StatsCache.Set("ytd", data.DB.GetStats(timeAgoYTD))
 }

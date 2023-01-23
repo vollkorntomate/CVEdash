@@ -1,13 +1,17 @@
-package main
+package data
 
 import (
 	"log"
 	"time"
 
+	"vollkorntomate.de/cvedash/internal/tools"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
+
+const DB_VERSION = 1
 
 var DB Database
 
@@ -62,7 +66,7 @@ func (db *Database) GetStats(since time.Time) CVEStats {
 		Count            int    `gorm:"count"`
 	}, 0)
 
-	db.DB.Raw(query, FormatISODate(since)).Scan(&dbResults)
+	db.DB.Raw(query, tools.FormatISODate(since)).Scan(&dbResults)
 
 	for i := 0; i < len(dbResults); i++ {
 		count := dbResults[i].Count

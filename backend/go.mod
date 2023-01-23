@@ -1,4 +1,4 @@
-module vollkorntomate/cvedashtryout
+module vollkorntomate.de/cvedash
 
 go 1.19
 
