@@ -19,9 +19,10 @@ func ImportNewEntries() {
 	reqParams := NVDRequestParams{}
 	lastUpdate := DB.GetLastNVDUpdate()
 	log.Println("Starting import of new entries. Last update was", lastUpdate.LastUpdate)
+	currentTime := time.Now()
 	if !lastUpdate.LastUpdate.IsZero() && lastUpdate.Version == DB_VERSION {
 		reqParams.LastModStartDate = FormatISODate(lastUpdate.LastUpdate)
-		reqParams.LastModEndDate = FormatISODate(time.Now())
+		reqParams.LastModEndDate = FormatISODate(currentTime)
 	}
 
 	var err error
@@ -48,8 +49,10 @@ func ImportNewEntries() {
 	}
 
 	if err == nil {
-		DB.UpdateLastNVDUpdate()
+		DB.UpdateLastNVDUpdate(currentTime)
 		log.Println("Import finished successfully")
+	} else {
+		log.Println("Import failed", err)
 	}
 }
 

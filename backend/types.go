@@ -18,6 +18,14 @@ type MinimalCVEData struct {
 	// CPEs             []string
 }
 
+type CVEStats struct {
+	NumLow             int
+	NumMedium          int
+	NumHigh            int
+	NumCritical        int
+	NumUnknownSeverity int
+}
+
 type LastNVDUpdate struct {
 	LastUpdate time.Time
 	Version    int
