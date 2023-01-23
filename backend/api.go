@@ -13,11 +13,11 @@ import (
 
 const apiResultsPerPage = 10
 
-var statsCache map[string]CVEStats
+var StatsCache CVEStatsCache
 
 func RunAPIServer() {
-	statsCache = make(map[string]CVEStats)
-	updateCache()
+	StatsCache = NewStatsCache()
+	UpdateStateCache()
 
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
@@ -25,7 +25,7 @@ func RunAPIServer() {
 	router.Get("/stats/{duration:24h|7d|30d|1y|ytd}", getStats)
 
 	log.Println("Starting API server")
-	http.ListenAndServe(":3000", router)
+	go http.ListenAndServe(":3000", router)
 }
 
 func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
@@ -41,7 +41,7 @@ func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
 func getStats(response http.ResponseWriter, req *http.Request) {
 	duration := chi.URLParam(req, "duration")
 
-	stats, ok := statsCache[duration]
+	stats, ok := StatsCache.Get(duration)
 	if !ok {
 		response.WriteHeader(404)
 		return
@@ -61,7 +61,7 @@ func writeJSONResponse(response http.ResponseWriter, data any) {
 	response.Write(jsonData)
 }
 
-func updateCache() {
+func UpdateStateCache() {
 	now := time.Now().UTC()
 	timeAgo24h := now.Add(-24 * time.Hour)
 	timeAgo7d := now.Add(-7 * 24 * time.Hour)
@@ -69,9 +69,9 @@ func updateCache() {
 	timeAgo1y := time.Date(now.Year()-1, now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second(), now.Nanosecond(), time.UTC)
 	timeAgoYTD := time.Date(now.Year(), time.January, 1, 0, 0, 0, 0, time.UTC)
 
-	statsCache["24h"] = DB.GetStats(timeAgo24h)
-	statsCache["7d"] = DB.GetStats(timeAgo7d)
-	statsCache["30d"] = DB.GetStats(timeAgo30d)
-	statsCache["1y"] = DB.GetStats(timeAgo1y)
-	statsCache["ytd"] = DB.GetStats(timeAgoYTD)
+	StatsCache.Set("24h", DB.GetStats(timeAgo24h))
+	StatsCache.Set("7d", DB.GetStats(timeAgo7d))
+	StatsCache.Set("30d", DB.GetStats(timeAgo30d))
+	StatsCache.Set("1y", DB.GetStats(timeAgo1y))
+	StatsCache.Set("ytd", DB.GetStats(timeAgoYTD))
 }

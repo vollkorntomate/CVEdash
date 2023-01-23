@@ -9,8 +9,9 @@ import (
 var Config CVEDashConfig
 
 type CVEDashConfig struct {
-	NVDAPIKey  string `json:"nvdApiKey"`
-	DBFilePath string `json:"dbFilePath"`
+	NVDAPIKey             string `json:"nvdApiKey"`
+	DBFilePath            string `json:"dbFilePath"`
+	MinutesBetweenUpdates uint64 `json:"minutesBetweenUpdates"`
 }
 
 func LoadConfig(path string) CVEDashConfig {
@@ -19,7 +20,11 @@ func LoadConfig(path string) CVEDashConfig {
 		log.Fatalln("Could not read config file at "+path+":", err)
 	}
 
-	var jsonConfig CVEDashConfig
+	jsonConfig := CVEDashConfig{ // default values
+		NVDAPIKey:             "",
+		DBFilePath:            "cvedash-data.db",
+		MinutesBetweenUpdates: 10,
+	}
 	json.Unmarshal(contents, &jsonConfig)
 
 	return jsonConfig
