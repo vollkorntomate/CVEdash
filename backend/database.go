@@ -28,7 +28,7 @@ func (db *Database) InitDB() {
 	db.DB.AutoMigrate(&LastNVDUpdate{})
 }
 
-func (db *Database) GetLastNVDUpdate() time.Time {
+func (db *Database) GetLastNVDUpdate() LastNVDUpdate {
 	lastUpdate := LastNVDUpdate{}
 	var numEntries int64
 
@@ -38,11 +38,11 @@ func (db *Database) GetLastNVDUpdate() time.Time {
 		db.DB.First(&lastUpdate)
 	}
 
-	return lastUpdate.LastUpdate
+	return lastUpdate
 }
 
 func (db *Database) UpdateLastNVDUpdate() {
-	lastUpdate := LastNVDUpdate{LastUpdate: time.Now()}
+	lastUpdate := LastNVDUpdate{LastUpdate: time.Now(), Version: DB_VERSION}
 
 	db.DB.Where("1=1").Save(&lastUpdate) // override existing single value
 }

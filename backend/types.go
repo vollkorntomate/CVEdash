@@ -20,6 +20,7 @@ type MinimalCVEData struct {
 
 type LastNVDUpdate struct {
 	LastUpdate time.Time
+	Version    int
 }
 
 type NVDResponse struct {

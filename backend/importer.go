@@ -18,8 +18,8 @@ type NVDRequestParams struct {
 func ImportNewEntries() {
 	reqParams := NVDRequestParams{}
 	lastUpdate := DB.GetLastNVDUpdate()
-	if !lastUpdate.IsZero() {
-		reqParams.LastModStartDate = FormatISODate(lastUpdate)
+	if !lastUpdate.LastUpdate.IsZero() && lastUpdate.Version == DB_VERSION {
+		reqParams.LastModStartDate = FormatISODate(lastUpdate.LastUpdate)
 		reqParams.LastModEndDate = FormatISODate(time.Now())
 	}
 

@@ -2,6 +2,8 @@ package main
 
 import "net/http"
 
+const DB_VERSION = 1
+
 var HTTPClient http.Client
 
 func main() {
