@@ -18,6 +18,7 @@ type NVDRequestParams struct {
 func ImportNewEntries() {
 	reqParams := NVDRequestParams{}
 	lastUpdate := DB.GetLastNVDUpdate()
+	log.Println("Starting import of new entries. Last update was", lastUpdate.LastUpdate)
 	if !lastUpdate.LastUpdate.IsZero() && lastUpdate.Version == DB_VERSION {
 		reqParams.LastModStartDate = FormatISODate(lastUpdate.LastUpdate)
 		reqParams.LastModEndDate = FormatISODate(time.Now())
@@ -34,8 +35,11 @@ func ImportNewEntries() {
 		if err != nil {
 			log.Println("Import of new entries failed:", err)
 		}
-		resultsPerPage = response.ResultsPerPage
-		total = response.TotalResults
+		if offset == 0 {
+			resultsPerPage = response.ResultsPerPage
+			total = response.TotalResults
+			log.Println("Total number of new entries:", total)
+		}
 
 		minimal := response.ConvertToMinimal()
 		DB.SaveBatch(minimal)
@@ -45,6 +49,7 @@ func ImportNewEntries() {
 
 	if err == nil {
 		DB.UpdateLastNVDUpdate()
+		log.Println("Import finished successfully")
 	}
 }
 

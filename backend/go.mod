@@ -3,6 +3,7 @@ module vollkorntomate/cvedashtryout
 go 1.19
 
 require (
+	github.com/go-chi/chi v1.5.4
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.24.3
 )

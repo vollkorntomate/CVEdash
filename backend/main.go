@@ -15,4 +15,5 @@ func main() {
 	HTTPClient = http.Client{}
 
 	ImportNewEntries()
+	RunAPIServer()
 }
