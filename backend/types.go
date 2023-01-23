@@ -29,6 +29,15 @@ type NVDResponse struct {
 	Vulnerabilities []NVDItem `json:"vulnerabilities"`
 }
 
+func (response *NVDResponse) ConvertToMinimal() []MinimalCVEData {
+	minimal := make([]MinimalCVEData, response.ResultsPerPage)
+	for i := 0; i < response.ResultsPerPage; i++ {
+		minimal[i] = response.Vulnerabilities[i].CVE.ToMinimalCVEData()
+	}
+
+	return minimal
+}
+
 type NVDItem struct {
 	CVE NVDCVE `json:"cve"`
 }

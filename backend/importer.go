@@ -37,11 +37,7 @@ func ImportNewEntries() {
 		resultsPerPage = response.ResultsPerPage
 		total = response.TotalResults
 
-		minimal := make([]MinimalCVEData, resultsPerPage)
-		for i := 0; i < resultsPerPage; i++ {
-			minimal[i] = response.Vulnerabilities[i].CVE.ToMinimalCVEData()
-		}
-
+		minimal := response.ConvertToMinimal()
 		DB.SaveBatch(minimal)
 
 		apiSleep()
