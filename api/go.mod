@@ -1,4 +1,4 @@
-module vollkorntomate.de/cvedash
+module vollkorntomate.de/cvedash-api
 
 go 1.19
 

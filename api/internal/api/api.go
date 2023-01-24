@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"vollkorntomate.de/cvedash/internal/data"
+	"vollkorntomate.de/cvedash-api/internal/data"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"

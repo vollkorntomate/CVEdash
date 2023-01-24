@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"vollkorntomate.de/cvedash/internal/api"
-	"vollkorntomate.de/cvedash/internal/config"
-	"vollkorntomate.de/cvedash/internal/data"
+	"vollkorntomate.de/cvedash-api/internal/api"
+	"vollkorntomate.de/cvedash-api/internal/config"
+	"vollkorntomate.de/cvedash-api/internal/data"
 )
 
 func main() {

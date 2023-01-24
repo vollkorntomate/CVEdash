@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"vollkorntomate.de/cvedash/internal/config"
-	"vollkorntomate.de/cvedash/internal/tools"
+	"vollkorntomate.de/cvedash-api/internal/config"
+	"vollkorntomate.de/cvedash-api/internal/tools"
 )
 
 type NVDRequestParams struct {

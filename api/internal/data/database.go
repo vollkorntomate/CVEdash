@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"vollkorntomate.de/cvedash/internal/tools"
+	"vollkorntomate.de/cvedash-api/internal/tools"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

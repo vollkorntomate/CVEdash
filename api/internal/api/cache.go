@@ -3,7 +3,7 @@ package api
 import (
 	"sync"
 
-	"vollkorntomate.de/cvedash/internal/data"
+	"vollkorntomate.de/cvedash-api/internal/data"
 )
 
 type CVEStatsCache struct {
