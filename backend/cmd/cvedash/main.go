@@ -29,7 +29,7 @@ func ScheduleBackgroundTasks() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		for range time.Tick(time.Minute * time.Duration(config.Config.MinutesBetweenUpdates)) {
+		for range time.Tick(time.Minute * time.Duration(config.Config.MinutesBetweenNVDUpdates)) {
 			data.ImportNewEntries()
 		}
 	}()
