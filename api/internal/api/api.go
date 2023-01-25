@@ -35,7 +35,7 @@ func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
 	offset := (page - 1) * apiResultsPerPage
 
 	var cves []data.MinimalCVEData
-	data.DB.DB.Order("published DESC").Limit(apiResultsPerPage).Offset(offset).Find(&cves)
+	data.DB.DB.Where("status <> ?", "Rejected").Order("published DESC").Limit(apiResultsPerPage).Offset(offset).Find(&cves)
 
 	writeJSONResponse(response, cves)
 }

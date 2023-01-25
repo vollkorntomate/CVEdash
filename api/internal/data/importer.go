@@ -40,6 +40,7 @@ func ImportNewEntries() {
 		response, err = makeNVDRequest(reqParams)
 		if err != nil {
 			log.Println("Import of new entries failed:", err)
+			return
 		}
 		if offset == 0 {
 			resultsPerPage = response.ResultsPerPage
@@ -73,7 +74,11 @@ func makeNVDRequest(params NVDRequestParams) (*NVDResponse, error) {
 	}
 
 	url := baseURL + "?" + query.Encode()
-	req, _ := http.NewRequest(http.MethodGet, url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		log.Println("Could not create HTTP request", err)
+		return nil, err
+	}
 	setAPIKeyHeader(req)
 	response, err := HTTPClient.Do(req)
 	if err != nil {
