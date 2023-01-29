@@ -1,10 +1,12 @@
 <script lang="ts">
-    import type {CVESummary} from "./types"
-
-    export let cveSummary: CVESummary
+    export let cveID: string
+    export let cveDescription: string
+    export let published: string
+    export let cvssScore: number
+    export let cvssSeverity: string
 
     let color = "text-neutral-800 bg-neutral-400";
-    switch (cveSummary.cvssSeverity) {
+    switch (cvssSeverity) {
         case "LOW":
             color = "text-neutral-700 bg-yellow-300";
             break;
@@ -23,20 +25,20 @@
 <div class="bg-neutral-700 p-2 rounded-lg">
     <div class="grid grid-cols-2 mb-2">
         <div>
-            <span class="text-xl font-bold">{cveSummary.id}</span>
+            <span class="text-xl font-bold">{cveID}</span>
         </div>
         <div class="text-right">
             <div>
                 <span class="p-1 text-sm rounded-md {color}">
-                    {(cveSummary.cvssScore > 0.0 ? cveSummary.cvssScore + " " : "")}{cveSummary.cvssSeverity}
+                    {(cvssScore > 0.0 ? cvssScore.toFixed(1) + " " : "")}{(cvssSeverity != "" ? cvssSeverity : "NO CVSS")}
                 </span>
             </div>
             <div>
-                <span class="text-sm">{cveSummary.published}</span>
+                <span class="text-sm">{published}</span>
             </div>
         </div>
     </div>
-    <div class="text-justify">
-        <span>{cveSummary.desription}</span>
+    <div>
+        <span>{cveDescription}</span>
     </div>
 </div>

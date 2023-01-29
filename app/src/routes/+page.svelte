@@ -1,16 +1,25 @@
 <script>
+	import { CVESummary } from "$lib/types";
+	import { onMount } from "svelte";
 	import CVESummaryView from "../lib/CVESummaryView.svelte";
-	import {CVESummary} from "../lib/types"
+
+	let latestCVEs = [];
+
+	onMount(async () => {
+		await fetch('http://localhost:8077/latest/1')
+		.then(r => r.json())
+		.then(data => {
+			latestCVEs = data
+		});
+	});
 </script>
 
 <div class="container mx-auto my-4">
 	<div class="grid gap-4 grid-cols-4">
 		<div class="grid auto-rows-auto grid-cols-1 gap-2">
-			<CVESummaryView cveSummary="{new CVESummary("CVE-2023-12345", "This CVE is a small test for the box in which a description will live. This CVE is a small test for the box in which a description will live. This CVE is a small test for the box in which a description will live.", "gestern", "LOW", 1.3)}" />
-			<CVESummaryView cveSummary="{new CVESummary("asdf", "nice desc", "gestern", "MEDIUM", 4.3)}" />
-			<CVESummaryView cveSummary="{new CVESummary("asdf", "nice desc", "gestern", "HIGH", 7.3)}" />
-			<CVESummaryView cveSummary="{new CVESummary("asdf", "nice desc", "gestern", "CRITICAL", 9.3)}" />
-			<CVESummaryView cveSummary="{new CVESummary("asdf", "nice desc", "gestern", "NO CVSS", 0)}" />
+			{#each latestCVEs as cve}
+				<CVESummaryView cveID="{cve.id}" cveDescription="{cve.description}" published="{cve.published}" cvssScore="{cve.cvssBaseScore}" cvssSeverity="{cve.cvssBaseSeverity}" />
+			{/each}
 		</div>
 		
 		<div class="col-span-2">
@@ -18,9 +27,9 @@
 		</div>
 		
 		<div class="grid auto-rows-auto grid-cols-1 gap-2">
-			<CVESummaryView cveSummary="{new CVESummary("", "twitter", "", "", 0)}" />
-			<CVESummaryView cveSummary="{new CVESummary("", "mastodon", "", "", 0)}" />
-			<CVESummaryView cveSummary="{new CVESummary("", "und so weiter", "", "", 0)}" />
+			<CVESummaryView cveID="twitter" cveDescription="" published="" cvssScore="{0.0}" cvssSeverity="" />
+			<CVESummaryView cveID="mastodon" cveDescription="" published="" cvssScore="{0.0}" cvssSeverity="" />
+			<CVESummaryView cveID="and so forth..." cveDescription="But of course not as CVESummaryViews..." published="" cvssScore="{0.0}" cvssSeverity="" />
 		</div>
 	</div>
 </div>
