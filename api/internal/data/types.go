@@ -6,14 +6,14 @@ import (
 )
 
 type MinimalCVEData struct {
-	ID               string
-	Published        string `gorm:"index"`
-	LastModified     string
-	Status           string
-	Description      string
-	CVSSVector       string
-	CVSSBaseScore    float32
-	CVSSBaseSeverity string
+	ID               string  `json:"id"`
+	Published        string  `json:"published" gorm:"index"`
+	LastModified     string  `json:"lastModified"`
+	Status           string  `json:"status"`
+	Description      string  `json:"description"`
+	CVSSVector       string  `json:"cvssVector"`
+	CVSSBaseScore    float32 `json:"cvssBaseScore"`
+	CVSSBaseSeverity string  `json:"cvssBaseSeverity"`
 	// CWEs             []string
 	// CPEs             []string
 }

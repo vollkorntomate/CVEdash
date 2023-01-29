@@ -23,11 +23,19 @@ func RunAPIServer() {
 
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
+	router.Options("/latest/{page:[0-9]+}", optionsLatestPublishedCVEs)
 	router.Get("/latest/{page:[0-9]+}", getLatestPublishedCVEs)
 	router.Get("/stats/{duration:24h|7d|30d|1y|ytd}", getStats)
 
 	log.Println("Starting API server on http://localhost:8077")
 	go http.ListenAndServe(":8077", router)
+}
+
+func optionsLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
+	response.Header().Add("Access-Control-Request-Method", http.MethodGet)
+	response.Header().Add("Access-Control-Request-Headers", "Content-Type")
+	response.Header().Add("Access-Control-Allow-Origin", "*")
+	response.WriteHeader(http.StatusNoContent)
 }
 
 func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
@@ -53,10 +61,12 @@ func getStats(response http.ResponseWriter, req *http.Request) {
 }
 
 func writeJSONResponse(response http.ResponseWriter, data any) {
+	response.Header().Add("Access-Control-Allow-Origin", "*")
+	response.Header().Add("Content-Type", "application/json")
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		log.Println("Could not marshal to JSON")
-		response.WriteHeader(500)
+		response.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
