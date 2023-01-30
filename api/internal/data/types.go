@@ -14,6 +14,7 @@ type MinimalCVEData struct {
 	CVSSVector       string  `json:"cvssVector"`
 	CVSSBaseScore    float32 `json:"cvssBaseScore"`
 	CVSSBaseSeverity string  `json:"cvssBaseSeverity"`
+	CVSSSource       string  `json:"cvssSource"`
 	// CWEs             []string
 	// CPEs             []string
 }
@@ -71,6 +72,16 @@ type NVDCVE struct {
 				BaseSeverity string  `json:"baseSeverity"`
 			} `json:"cvssData"`
 		} `json:"cvssMetricV31"`
+		CvssMetricV30 []struct {
+			Source   string `json:"source"`
+			Type     string `json:"type"`
+			CvssData struct {
+				Version      string  `json:"version"`
+				VectorString string  `json:"vectorString"`
+				BaseScore    float32 `json:"baseScore"`
+				BaseSeverity string  `json:"baseSeverity"`
+			} `json:"cvssData"`
+		} `json:"cvssMetricV30"`
 		CvssMetricV2 []struct {
 			Source   string `json:"source"`
 			Type     string `json:"type"`
@@ -115,14 +126,22 @@ func (nvdCVE NVDCVE) ToMinimalCVEData() MinimalCVEData {
 	var cvssVector string
 	var baseScore float32
 	var baseSeverity string
+	var cvssSource string
 	if len(nvdCVE.Metrics.CvssMetricV31) > 0 {
 		cvssVector = nvdCVE.Metrics.CvssMetricV31[0].CvssData.VectorString
 		baseScore = nvdCVE.Metrics.CvssMetricV31[0].CvssData.BaseScore
 		baseSeverity = nvdCVE.Metrics.CvssMetricV31[0].CvssData.BaseSeverity
+		cvssSource = nvdCVE.Metrics.CvssMetricV31[0].Source
+	} else if len(nvdCVE.Metrics.CvssMetricV30) > 0 {
+		cvssVector = nvdCVE.Metrics.CvssMetricV30[0].CvssData.VectorString
+		baseScore = nvdCVE.Metrics.CvssMetricV30[0].CvssData.BaseScore
+		baseSeverity = nvdCVE.Metrics.CvssMetricV30[0].CvssData.BaseSeverity
+		cvssSource = nvdCVE.Metrics.CvssMetricV30[0].Source
 	} else if len(nvdCVE.Metrics.CvssMetricV2) > 0 {
 		cvssVector = nvdCVE.Metrics.CvssMetricV2[0].CvssData.VectorString
 		baseScore = nvdCVE.Metrics.CvssMetricV2[0].CvssData.BaseScore
 		baseSeverity = nvdCVE.Metrics.CvssMetricV2[0].BaseSeverity
+		cvssSource = nvdCVE.Metrics.CvssMetricV2[0].Source
 	}
 
 	return MinimalCVEData{
@@ -134,5 +153,6 @@ func (nvdCVE NVDCVE) ToMinimalCVEData() MinimalCVEData {
 		CVSSVector:       cvssVector,
 		CVSSBaseScore:    baseScore,
 		CVSSBaseSeverity: baseSeverity,
+		CVSSSource:       cvssSource,
 	}
 }

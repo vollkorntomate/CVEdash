@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -23,11 +24,14 @@ var HTTPClient http.Client
 func ImportNewEntries() {
 	reqParams := NVDRequestParams{}
 	lastUpdate := DB.GetLastNVDUpdate()
+	printProgress := false
 	log.Println("Starting import of new entries. Last update was", lastUpdate.LastUpdate)
 	currentTime := time.Now()
 	if !lastUpdate.LastUpdate.IsZero() && lastUpdate.Version == DB_VERSION {
 		reqParams.LastModStartDate = tools.FormatISODate(lastUpdate.LastUpdate)
 		reqParams.LastModEndDate = tools.FormatISODate(currentTime)
+	} else {
+		printProgress = true
 	}
 
 	var err error
@@ -47,11 +51,17 @@ func ImportNewEntries() {
 			total = response.TotalResults
 			log.Println("Total number of new entries:", total)
 		}
+		if printProgress {
+			fmt.Printf("\rProgress: %d of %d (%.1f%%)", offset, total, (float32(offset)/float32(total))*100.0)
+		}
 
 		minimal := response.ConvertToMinimal()
 		DB.SaveBatch(minimal)
 
 		apiSleep()
+	}
+	if printProgress {
+		fmt.Print("\n")
 	}
 
 	if err == nil {
