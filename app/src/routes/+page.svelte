@@ -22,9 +22,9 @@
 	}
 </script>
 
-<div class="container mx-auto my-4">
+<div class="container mx-auto py-4">
 	<div class="grid gap-4 grid-cols-4">
-		<div class="grid auto-rows-auto grid-cols-1 gap-2 max-h-screen overflow-y-scroll">
+		<div class="grid auto-rows-auto grid-cols-1 gap-2 max-h-screen-padded overflow-y-scroll no-scrollbar">
 			{#each latestCVEs as cve}
 				<CVESummaryView cveID="{cve.id}" cveDescription="{cve.description}" published="{cve.published}" cvssScore="{cve.cvssBaseScore}" cvssSeverity="{cve.cvssBaseSeverity}" />
 			{/each}

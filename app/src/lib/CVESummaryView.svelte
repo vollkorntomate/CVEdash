@@ -44,6 +44,6 @@
         </div>
     </div>
     <div>
-        <span>{cveDescription}</span>
+        <span style="overflow-wrap: break-word;">{cveDescription}</span>
     </div>
 </div>
