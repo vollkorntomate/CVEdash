@@ -1,4 +1,7 @@
 <script lang="ts">
+    import moment from 'moment';
+
+
     export let cveID: string
     export let cveDescription: string
     export let published: string
@@ -39,7 +42,7 @@
                 </span>
             </div>
             <div>
-                <span class="text-sm">{published}</span>
+                <span class="text-sm" title="{new Date(published).toUTCString()}">{moment(published).fromNow()}</span>
             </div>
         </div>
     </div>
