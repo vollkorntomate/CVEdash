@@ -5,8 +5,11 @@
     export let cvssScore: number
     export let cvssSeverity: string
 
-    let color = "text-neutral-800 bg-neutral-400";
-    switch (cvssSeverity) {
+    $: color = ""
+    $: switch (cvssSeverity) {
+        case "":
+            color = "text-neutral-800 bg-neutral-400";
+            break;
         case "LOW":
             color = "text-neutral-700 bg-yellow-300";
             break;
@@ -25,7 +28,9 @@
 <div class="bg-neutral-700 p-2 rounded-lg">
     <div class="grid grid-cols-2 mb-2">
         <div>
-            <span class="text-xl font-bold">{cveID}</span>
+            <a href="https://nvd.nist.gov/vuln/detail/{cveID}">
+                <span class="text-xl font-bold">{cveID}</span>
+            </a>
         </div>
         <div class="text-right">
             <div>
