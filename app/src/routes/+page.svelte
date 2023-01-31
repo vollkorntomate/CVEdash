@@ -22,7 +22,11 @@
 	}
 </script>
 
-<div class="container mx-auto py-2">
+<svelte:head>
+	<title>CVE Dashboard</title>
+</svelte:head>
+
+<div class="container sm:mx-auto py-2">
 	<div class="flex flex-row flex-wrap md:flex-nowrap">
 		<div class="md:basis-1/3 lg:basis-1/4 order-2 md:order-1 m-2">
 			<div class="dashboard-card max-h-screen-padded overflow-y-scroll no-scrollbar">
@@ -49,16 +53,15 @@
 					/>
 				{/each}
 				<div class="text-center">
-					<button on:click={loadMoreLatest} class="p-2 text-neutral-200 bg-blue-500 rounded-md"
-						>Load more</button
-					>
+					<button on:click={loadMoreLatest} class="p-2 text-neutral-100 bg-blue-600 rounded-md">
+						Load more
+					</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="md:basis-1/3 lg:basis-1/2 order-1 md:order-2 m-2">
 			<div class="dashboard-card">
-				<div id="chart" />
 				<CVESeverityChart />
 			</div>
 		</div>

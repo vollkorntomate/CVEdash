@@ -10,7 +10,10 @@
 
 	let data = [0, 0, 0, 0, 0];
 
-	let chartOptions = {};
+	let chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false
+    };
 
 	$: dataset = {
 		labels: ['No CVSS', 'Low', 'Medium', 'High', 'Critical'],
