@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="m-2 bg-bg3 dark:bg-bg3-dark p-2 rounded-lg">
+<div class="mb-2 bg-bg3 dark:bg-bg3-dark p-2 rounded-lg">
 	<div class="grid grid-cols-2 mb-2">
 		<div>
 			<a href="https://nvd.nist.gov/vuln/detail/{cveID}" target="_blank" rel="noreferrer noopener">
@@ -38,7 +38,7 @@
 		</div>
 		<div class="text-right">
 			<div>
-				{#if cvssScore > 0.0 && cvssSeverity !== ""}
+				{#if cvssScore > 0.0 && cvssSeverity !== ''}
 					<span
 						class="p-1 text-sm rounded-md {color}"
 						title="Vector: {cvssVector}&#013;Source: {cvssSource}"

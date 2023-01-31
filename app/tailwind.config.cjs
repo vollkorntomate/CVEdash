@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -6,19 +6,19 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				'bg1': {
+				bg1: {
 					DEFAULT: colors.neutral['200'],
 					dark: colors.neutral['800']
 				},
-				'bg2': {
+				bg2: {
 					DEFAULT: '#dddddd',
 					dark: '#1f1f1f'
 				},
-				'bg3': {
+				bg3: {
 					DEFAULT: colors.neutral['50'],
 					dark: colors.neutral['700']
 				},
-				'shadow': {
+				shadow: {
 					DEFAULT: colors.neutral['400'],
 					dark: colors.black
 				}
