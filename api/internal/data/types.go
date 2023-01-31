@@ -20,11 +20,11 @@ type MinimalCVEData struct {
 }
 
 type CVEStats struct {
-	NumLow             int
-	NumMedium          int
-	NumHigh            int
-	NumCritical        int
-	NumUnknownSeverity int
+	NumLow             int `json:"low"`
+	NumMedium          int `json:"medium"`
+	NumHigh            int `json:"high"`
+	NumCritical        int `json:"critical"`
+	NumUnknownSeverity int `json:"unknown"`
 }
 
 type LastNVDUpdate struct {
