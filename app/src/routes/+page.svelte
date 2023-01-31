@@ -24,7 +24,7 @@
 <div class="container mx-auto py-2">
 	<div class="flex flex-row flex-wrap">
 		<div
-			class="md:basis-1/3 lg:basis-1/4 order-2 md:order-1 max-h-screen-padded overflow-y-scroll no-scrollbar bg-neutral-100 dark:bg-neutral-800 rounded-lg drop-shadow-2xl"
+			class="md:basis-1/3 lg:basis-1/4 order-2 md:order-1 max-h-screen-padded overflow-y-scroll no-scrollbar bg-bg2 dark:bg-bg2-dark rounded-lg shadow-lg shadow-shadow dark:shadow-shadow-dark"
 		>
 			{#if latestCVEs.length == 0}
 				<CVESummaryView
@@ -49,7 +49,7 @@
 				/>
 			{/each}
 			<div class="text-center">
-				<button on:click={loadMoreLatest} class="mb-2 p-2 bg-blue-500 rounded-md">Load more</button>
+				<button on:click={loadMoreLatest} class="mb-2 p-2 text-neutral-200 bg-blue-500 rounded-md">Load more</button>
 			</div>
 		</div>
 

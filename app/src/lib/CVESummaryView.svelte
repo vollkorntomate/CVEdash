@@ -12,16 +12,16 @@
 	$: color = '';
 	$: switch (cvssSeverity) {
 		case '':
-			color = 'text-neutral-800 bg-neutral-400';
+			color = 'text-neutral-800 bg-neutral-300 dark:bg-neutral-400';
 			break;
 		case 'LOW':
-			color = 'text-neutral-700 bg-yellow-300';
+			color = 'text-neutral-800 bg-yellow-300';
 			break;
 		case 'MEDIUM':
-			color = 'text-neutral-700 bg-orange-400 dark:bg-orange-500';
+			color = 'text-neutral-800 bg-orange-400';
 			break;
 		case 'HIGH':
-			color = 'text-neutral-100 bg-red-600 dark:bg-red-700';
+			color = 'text-neutral-50 dark:text-neutral-50 bg-red-500 dark:bg-red-600';
 			break;
 		case 'CRITICAL':
 			color = 'text-neutral-100 bg-red-800 dark:bg-red-900';
@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="m-2 bg-neutral-300 dark:bg-neutral-700 p-2 rounded-lg">
+<div class="m-2 bg-bg3 dark:bg-bg3-dark p-2 rounded-lg">
 	<div class="grid grid-cols-2 mb-2">
 		<div>
 			<a href="https://nvd.nist.gov/vuln/detail/{cveID}" target="_blank" rel="noreferrer noopener">
