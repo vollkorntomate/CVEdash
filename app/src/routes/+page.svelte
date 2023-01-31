@@ -21,11 +21,22 @@
 	}
 </script>
 
-<div class="container mx-auto py-4">
+<div class="container mx-auto py-2">
 	<div class="flex flex-row flex-wrap">
 		<div
 			class="md:basis-1/3 lg:basis-1/4 order-2 md:order-1 max-h-screen-padded overflow-y-scroll no-scrollbar bg-neutral-100 dark:bg-neutral-800 rounded-lg drop-shadow-2xl"
 		>
+			{#if latestCVEs.length == 0}
+				<CVESummaryView
+					cveID="NO CONTENT"
+					cveDescription="Failed to fetch the newest CVEs. Is the API running?"
+					published={new Date().toISOString()}
+					cvssScore={10.0}
+					cvssSeverity="CRITICAL"
+					cvssVector="-/-"
+					cvssSource="vollkorntomate"
+				/>
+			{/if}
 			{#each latestCVEs as cve}
 				<CVESummaryView
 					cveID={cve.id}
