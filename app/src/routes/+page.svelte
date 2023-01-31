@@ -22,9 +22,9 @@
 </script>
 
 <div class="container mx-auto py-4">
-	<div class="grid gap-4 grid-cols-4">
+	<div class="flex flex-row flex-wrap">
 		<div
-			class="grid auto-rows-auto grid-cols-1 gap-2 p-2 max-h-screen-padded overflow-y-scroll no-scrollbar bg-neutral-100 dark:bg-neutral-800 rounded-lg drop-shadow-2xl"
+			class="md:basis-1/3 lg:basis-1/4 order-2 md:order-1 max-h-screen-padded overflow-y-scroll no-scrollbar bg-neutral-100 dark:bg-neutral-800 rounded-lg drop-shadow-2xl"
 		>
 			{#each latestCVEs as cve}
 				<CVESummaryView
@@ -38,15 +38,15 @@
 				/>
 			{/each}
 			<div class="text-center">
-				<button on:click={loadMoreLatest} class="p-2 bg-blue-500 rounded-md">Load more</button>
+				<button on:click={loadMoreLatest} class="mb-2 p-2 bg-blue-500 rounded-md">Load more</button>
 			</div>
 		</div>
 
-		<div class="col-span-2">
+		<div class="md:basis-1/3 lg:basis-1/2 order-1 md:order-2">
 			<div class="box">DIAGRAM</div>
 		</div>
 
-		<div class="grid auto-rows-auto grid-cols-1 gap-2">
+		<div class="md:basis-1/3 lg:basis-1/4 order-3">
 			<CVESummaryView
 				cveID="twitter"
 				cveDescription=""
