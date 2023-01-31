@@ -1,4 +1,5 @@
 <script>
+	import CVESeverityChart from '$lib/CVESeverityChart.svelte';
 	import { onMount } from 'svelte';
 	import CVESummaryView from '../lib/CVESummaryView.svelte';
 
@@ -57,7 +58,8 @@
 
 		<div class="md:basis-1/3 lg:basis-1/2 order-1 md:order-2 m-2">
 			<div class="dashboard-card">
-				<div>CHART</div>
+				<div id="chart" />
+				<CVESeverityChart />
 			</div>
 		</div>
 

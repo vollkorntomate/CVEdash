@@ -34,6 +34,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"moment": "^2.29.4"
+		"chart.js": "^4.2.0",
+		"moment": "^2.29.4",
+		"svelte-chartjs": "^3.1.2"
 	}
 }
