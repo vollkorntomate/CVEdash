@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 
 	import { Chart, Title, BarElement, CategoryScale, LinearScale } from 'chart.js';
+	import ChartDataLabels from 'chartjs-plugin-datalabels'; 
 	import Bar from 'svelte-chartjs/Bar.svelte';
 
-	Chart.register(Title, BarElement, CategoryScale, LinearScale);
+	Chart.register(Title, BarElement, CategoryScale, LinearScale, ChartDataLabels);
 
 	export let timePeriod = '24h';
 
@@ -12,7 +13,13 @@
 
 	let chartOptions = {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: true,
+		plugins: {
+			datalabels: {
+				anchor: 'end',
+				align: 'top'
+			}
+		}
     };
 
 	$: dataset = {
