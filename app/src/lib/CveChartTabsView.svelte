@@ -1,9 +1,23 @@
 <script>
+	import { onMount } from 'svelte';
 	import 'tw-elements';
 	import CveSeverityChart from '../lib/CveSeverityChart.svelte';
 
 	let timePeriods = ['24h', '7d', '30d', 'ytd', '1y'];
 	let tabTitles = ['24 hours', '7 days', '30 days', 'YTD', '1 year'];
+
+	let allData = {};
+	onMount(fetchStats);
+
+	async function fetchStats() {
+		await fetch('http://localhost:8077/stats/all')
+			.then((r) => r.json())
+			.then((obj) => {
+				Object.keys(obj).forEach((k, i) => {
+					allData[k] = [obj[k].unknown, obj[k].low, obj[k].medium, obj[k].high, obj[k].critical];
+				});
+			});
+	}
 </script>
 
 <ul
@@ -35,7 +49,7 @@
 			role="tabpanel"
 			aria-labelledby="tabs-{timePeriod}-tab"
 		>
-			<CveSeverityChart {timePeriod} />
+			<CveSeverityChart {allData} {timePeriod} />
 		</div>
 	{/each}
 </div>

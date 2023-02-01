@@ -29,3 +29,10 @@ func (c *CVEStatsCache) Get(key string) (data.CVEStats, bool) {
 	v, ok := c.cache[key]
 	return v, ok
 }
+
+func (c *CVEStatsCache) GetAll() map[string]data.CVEStats {
+	c.lock.RLock()
+	defer c.lock.RUnlock()
+
+	return c.cache
+}

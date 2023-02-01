@@ -25,7 +25,7 @@ func RunAPIServer() {
 	router.Use(middleware.Logger)
 	router.Options("/*", corsOptions)
 	router.Get("/latest/{page:[0-9]+}", getLatestPublishedCVEs)
-	router.Get("/stats/{duration:24h|7d|30d|1y|ytd}", getStats)
+	router.Get("/stats/{duration:all|24h|7d|30d|1y|ytd}", getStats)
 
 	log.Println("Starting API server on http://localhost:8077")
 	go http.ListenAndServe(":8077", router)
@@ -51,13 +51,18 @@ func getLatestPublishedCVEs(response http.ResponseWriter, req *http.Request) {
 func getStats(response http.ResponseWriter, req *http.Request) {
 	duration := chi.URLParam(req, "duration")
 
-	stats, ok := StatsCache.Get(duration)
-	if !ok {
-		response.WriteHeader(404)
-		return
-	}
+	if duration == "all" {
+		stats := StatsCache.GetAll()
+		writeJSONResponse(response, stats)
+	} else {
+		stats, ok := StatsCache.Get(duration)
+		if !ok {
+			response.WriteHeader(404)
+			return
+		}
 
-	writeJSONResponse(response, stats)
+		writeJSONResponse(response, stats)
+	}
 }
 
 func writeJSONResponse(response http.ResponseWriter, data any) {
