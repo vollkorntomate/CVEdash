@@ -37,6 +37,7 @@
 		"chart.js": "^4.2.0",
 		"chartjs-plugin-datalabels": "^2.2.0",
 		"moment": "^2.29.4",
-		"svelte-chartjs": "^3.1.2"
+		"svelte-chartjs": "^3.1.2",
+		"tw-elements": "^1.0.0-alpha13"
 	}
 }

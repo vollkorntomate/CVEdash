@@ -21,12 +21,20 @@ const config = {
 				shadow: {
 					DEFAULT: colors.neutral['400'],
 					dark: colors.black
+				},
+				text1: {
+					DEFAULT: colors.black,
+					dark: colors.neutral['200']
+				},
+				text2: {
+					DEFAULT: colors.neutral['800'],
+					dark: colors.neutral['400']
 				}
 			}
 		}
 	},
 
-	plugins: []
+	plugins: [require('tw-elements/dist/plugin')]
 };
 
 module.exports = config;

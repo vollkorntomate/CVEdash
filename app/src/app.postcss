@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+	.dashboard-card {
+		@apply p-2 bg-bg2 dark:bg-bg2-dark rounded-lg shadow-lg shadow-shadow dark:shadow-shadow-dark;
+	}
+
+	.nav-tabs .nav-link {
+		@apply text-text2 dark:text-text2-dark;
+	}
+}
+
 @layer utilities {
 	@layer responsive {
 		/* Hide scrollbar for Chrome, Safari and Opera */
@@ -19,11 +29,5 @@
 		.max-h-screen-padded {
 			max-height: calc(100vh - 2rem); /* py-4 is 1rem on each side */
 		}
-	}
-}
-
-@layer components {
-	.dashboard-card {
-		@apply p-2 bg-bg2 dark:bg-bg2-dark rounded-lg shadow-lg shadow-shadow dark:shadow-shadow-dark;
 	}
 }

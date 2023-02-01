@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { Chart, Title, BarElement, CategoryScale, LinearScale } from 'chart.js';
-	import ChartDataLabels from 'chartjs-plugin-datalabels'; 
+	import ChartDataLabels from 'chartjs-plugin-datalabels';
 	import Bar from 'svelte-chartjs/Bar.svelte';
 
 	Chart.register(Title, BarElement, CategoryScale, LinearScale, ChartDataLabels);
@@ -12,15 +12,16 @@
 	let data = [0, 0, 0, 0, 0];
 
 	let chartOptions = {
-        responsive: true,
-        maintainAspectRatio: true,
+		responsive: true,
+		maintainAspectRatio: true,
+		animations: false,
 		plugins: {
 			datalabels: {
 				anchor: 'end',
 				align: 'top'
 			}
 		}
-    };
+	};
 
 	$: dataset = {
 		labels: ['No CVSS', 'Low', 'Medium', 'High', 'Critical'],
