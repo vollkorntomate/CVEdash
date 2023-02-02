@@ -1,21 +1,27 @@
-export class CVESummary {
+export class CveSummary {
 	id: string;
-	desription: string;
+	description: string;
 	published: string;
-	cvssBaseSeverity: string;
 	cvssBaseScore: number;
+	cvssBaseSeverity: string;
+	cvssBaseVector: string;
+	cvssSource: string;
 
 	constructor(
 		id: string,
-		desription: string,
+		description: string,
 		published: string,
 		cvssBaseSeverity: string,
-		cvssBaseScore: number
+		cvssBaseScore: number,
+		cvssBaseVector: string,
+		cvssSource: string
 	) {
 		this.id = id;
-		this.desription = desription;
+		this.description = description;
 		this.published = published;
 		this.cvssBaseSeverity = cvssBaseSeverity;
 		this.cvssBaseScore = cvssBaseScore;
+		this.cvssBaseVector = cvssBaseVector;
+		this.cvssSource = cvssSource;
 	}
 }

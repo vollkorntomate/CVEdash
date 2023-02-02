@@ -57,6 +57,6 @@
 	}
 </script>
 
-<div class="relative w-full h-64">
+<div class="relative w-full h-72">
 	<canvas bind:this={chartCtx} class="max-w-full" />
 </div>

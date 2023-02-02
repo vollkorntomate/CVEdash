@@ -1,16 +1,11 @@
 <script lang="ts">
 	import moment from 'moment';
+	import type { CveSummary } from '$lib/types';
 
-	export let cveID: string;
-	export let cveDescription: string;
-	export let published: string;
-	export let cvssScore: number;
-	export let cvssSeverity: string;
-	export let cvssVector: string;
-	export let cvssSource: string;
+	export let cve: CveSummary;
 
 	$: color = '';
-	$: switch (cvssSeverity) {
+	$: switch (cve.cvssBaseSeverity) {
 		case '':
 			color = 'text-neutral-800 bg-neutral-300 dark:bg-neutral-400';
 			break;
@@ -32,19 +27,19 @@
 <div class="mb-2 bg-bg3 dark:bg-bg3-dark p-2 rounded-lg">
 	<div class="grid grid-cols-2 mb-2">
 		<div>
-			<a href="https://nvd.nist.gov/vuln/detail/{cveID}" target="_blank" rel="noreferrer noopener">
-				<p class="text-xl font-bold xl:whitespace-nowrap">{cveID}</p>
+			<a href="https://nvd.nist.gov/vuln/detail/{cve.id}" target="_blank" rel="noreferrer noopener">
+				<p class="text-xl font-bold xl:whitespace-nowrap">{cve.id}</p>
 			</a>
 		</div>
 		<div class="text-right">
 			<div>
-				{#if cvssScore > 0.0 && cvssSeverity !== ''}
+				{#if cve.cvssBaseScore > 0.0 && cve.cvssBaseSeverity !== ''}
 					<span
 						class="p-1 text-sm rounded-md {color}"
-						title="Vector: {cvssVector}&#013;Source: {cvssSource}"
+						title="Vector: {cve.cvssBaseVector}&#013;Source: {cve.cvssSource}"
 					>
-						{cvssScore.toFixed(1)}
-						{cvssSeverity}
+						{cve.cvssBaseScore.toFixed(1)}
+						{cve.cvssBaseSeverity}
 					</span>
 				{:else}
 					<span
@@ -56,13 +51,13 @@
 				{/if}
 			</div>
 			<div>
-				<span class="text-sm" title={new Date(published).toUTCString()}>
-					{moment(published).fromNow()}
+				<span class="text-sm" title={new Date(cve.published).toUTCString()}>
+					{moment(cve.published).fromNow()}
 				</span>
 			</div>
 		</div>
 	</div>
 	<div>
-		<p style="overflow-wrap: break-word;">{cveDescription}</p>
+		<p style="overflow-wrap: break-word;">{cve.description}</p>
 	</div>
 </div>

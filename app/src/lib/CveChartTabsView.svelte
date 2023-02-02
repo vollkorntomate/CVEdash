@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import 'tw-elements';
-	import CveSeverityChart from '../lib/CveSeverityChart.svelte';
+	import CveSeverityChart from '$lib/CveSeverityChart.svelte';
 
 	let timePeriods = ['24h', '7d', '30d', 'ytd', '1y', 'alltime'];
 	let tabTitles = ['24 hours', '7 days', '30 days', 'YTD', '1 year', 'All Time'];
