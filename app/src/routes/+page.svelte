@@ -60,7 +60,7 @@
 			</div>
 		</div>
 
-		<div class="md:basis-1/3 lg:basis-1/2 order-1 md:order-2 m-2">
+		<div class="md:basis-1/3 lg:basis-1/2 w-full order-1 md:order-2 m-2">
 			<div class="dashboard-card">
 				<CveChartTabsView />
 			</div>

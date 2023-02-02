@@ -1,17 +1,26 @@
 <script>
-	import { Chart, Title, BarElement, CategoryScale, LinearScale } from 'chart.js';
+	// @ts-nocheck // to disable error that chartOptions is incompatible with Chart.options due to plugins field
+	import { Chart, BarController, BarElement, LinearScale, CategoryScale } from 'chart.js';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
-	import Bar from 'svelte-chartjs/Bar.svelte';
+	import { onMount } from 'svelte';
 
-	Chart.register(Title, BarElement, CategoryScale, LinearScale, ChartDataLabels);
+	Chart.register(BarController, BarElement, LinearScale, CategoryScale, ChartDataLabels);
 
 	export let allData = {};
-	export let timePeriod = '24h';
+	export let timePeriod = '';
+
+	let chartCtx;
+	let chart;
 
 	let chartOptions = {
 		responsive: true,
-		maintainAspectRatio: true,
+		maintainAspectRatio: false,
 		animations: false,
+		layout: {
+			padding: {
+				top: 16 // adjust for datalabels
+			}
+		},
 		plugins: {
 			datalabels: {
 				anchor: 'end',
@@ -20,7 +29,7 @@
 		}
 	};
 
-	$: dataset = {
+	let dataset = {
 		labels: ['No CVSS', 'Low', 'Medium', 'High', 'Critical'],
 		datasets: [
 			{
@@ -29,6 +38,25 @@
 			}
 		]
 	};
+
+	$: allData && timePeriod && updateChart();
+
+	onMount(() => {
+		chart = new Chart(chartCtx, {
+			type: 'bar',
+			data: dataset,
+			options: chartOptions
+		});
+	});
+
+	function updateChart() {
+		if (chart) {
+			chart.data.datasets[0].data = allData[timePeriod];
+			chart.update();
+		}
+	}
 </script>
 
-<Bar data={dataset} options={chartOptions} />
+<div class="relative w-full h-64">
+	<canvas bind:this={chartCtx} class="max-w-full" />
+</div>

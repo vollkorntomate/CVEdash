@@ -20,36 +20,38 @@
 	}
 </script>
 
-<ul
-	class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none mb-4"
-	id="tabs-tab"
-	role="tablist"
->
-	{#each timePeriods as timePeriod, i}
-		<li class="nav-item" role="presentation">
-			<a
-				href="#tabs-{timePeriod}"
-				class="nav-link block text-xs uppercase border-b-2 border-transparent px-5 py-3 hover:bg-bg3 hover:dark:bg-bg3-dark focus:border-transparent
-                {i === 0 ? 'active' : ''}"
-				id="tabs-{timePeriod}-tab"
-				data-bs-toggle="pill"
-				data-bs-target="#tabs-{timePeriod}"
-				role="tab"
-				aria-controls="tabs-{timePeriod}"
-				aria-selected={i === 0 ? 'true' : 'false'}>{tabTitles[i]}</a
+<div class="bg-bg3 dark:bg-bg2-dark rounded-lg">
+	<ul
+		class="nav nav-tabs flex flex-wrap justify-center list-none mb-4"
+		id="tabs-tab"
+		role="tablist"
+	>
+		{#each timePeriods as timePeriod, i}
+			<li class="nav-item" role="presentation">
+				<a
+					href="#tabs-{timePeriod}"
+					class="nav-link block text-xs uppercase border-b-2 border-transparent px-2 py-2 lg:px-5 lg:py-3 hover:bg-bg2 hover:dark:bg-bg3-dark focus:border-transparent
+					{i === 0 ? 'active' : ''}"
+					id="tabs-{timePeriod}-tab"
+					data-bs-toggle="pill"
+					data-bs-target="#tabs-{timePeriod}"
+					role="tab"
+					aria-controls="tabs-{timePeriod}"
+					aria-selected={i === 0 ? 'true' : 'false'}>{tabTitles[i]}</a
+				>
+			</li>
+		{/each}
+	</ul>
+	<div class="tab-content" id="tabs-tabContent">
+		{#each timePeriods as timePeriod, i}
+			<div
+				class="tab-pane fade {i === 0 ? 'show active' : ''}"
+				id="tabs-{timePeriod}"
+				role="tabpanel"
+				aria-labelledby="tabs-{timePeriod}-tab"
 			>
-		</li>
-	{/each}
-</ul>
-<div class="tab-content" id="tabs-tabContent">
-	{#each timePeriods as timePeriod, i}
-		<div
-			class="tab-pane fade {i === 0 ? 'show active' : ''}"
-			id="tabs-{timePeriod}"
-			role="tabpanel"
-			aria-labelledby="tabs-{timePeriod}-tab"
-		>
-			<CveSeverityChart {allData} {timePeriod} />
-		</div>
-	{/each}
+				<CveSeverityChart {allData} {timePeriod} />
+			</div>
+		{/each}
+	</div>
 </div>
