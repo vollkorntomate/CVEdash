@@ -28,7 +28,7 @@
 	<div class="grid grid-cols-2 mb-2">
 		<div>
 			<a href="https://nvd.nist.gov/vuln/detail/{cve.id}" target="_blank" rel="noreferrer noopener">
-				<p class="text-xl font-bold xl:whitespace-nowrap">{cve.id}</p>
+				<span class="text-xl font-bold xl:whitespace-nowrap">{cve.id}</span>
 			</a>
 		</div>
 		<div class="text-right">

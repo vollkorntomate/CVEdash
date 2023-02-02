@@ -18,7 +18,7 @@
 		animations: false,
 		layout: {
 			padding: {
-				top: 16 // adjust for datalabels
+				top: 24 // adjust for datalabels
 			}
 		},
 		plugins: {
@@ -57,6 +57,6 @@
 	}
 </script>
 
-<div class="relative w-full h-72">
+<div class="w-full h-72">
 	<canvas bind:this={chartCtx} class="max-w-full" />
 </div>
