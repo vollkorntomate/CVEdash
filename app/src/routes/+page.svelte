@@ -31,6 +31,10 @@
 	<div class="flex flex-row flex-wrap md:flex-nowrap">
 		<div class="md:basis-1/2 lg:basis-2/5 order-2 md:order-1 m-2">
 			<div class="dashboard-card max-h-screen-padded overflow-y-scroll no-scrollbar">
+				<div class="dashboard-card-title">
+					<span>Latest published CVEs</span>
+				</div>
+
 				{#if latestCVEs.length == 0}
 					<CveSummaryView
 						cve={new CveSummary(
@@ -57,6 +61,9 @@
 
 		<div class="md:basis-1/2 lg:basis-3/5 w-full order-1 md:order-2 m-2">
 			<div class="dashboard-card">
+				<div class="dashboard-card-title">
+					<span>CVSS Score Statistics</span>
+				</div>
 				<CveChartTabsView />
 			</div>
 		</div>
