@@ -1,8 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 
 	"vollkorntomate.de/cvedash-api/internal/api"
@@ -20,7 +24,19 @@ func main() {
 	data.ImportNewEntries()
 	api.RunAPIServer()
 
+	MakeInterruptHandler()
+
 	ScheduleBackgroundTasks()
+}
+
+func MakeInterruptHandler() {
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		log.Println("Bye!")
+		os.Exit(0)
+	}()
 }
 
 func ScheduleBackgroundTasks() {
