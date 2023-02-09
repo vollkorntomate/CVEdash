@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -17,7 +18,7 @@ const apiResultsPerPage = 10
 
 var StatsCache CVEStatsCache
 
-func RunAPIServer() {
+func RunAPIServer(ctx context.Context) {
 	StatsCache = NewStatsCache()
 	UpdateStateCache()
 
@@ -29,8 +30,15 @@ func RunAPIServer() {
 	router.Get("/stats", getAllStats)
 	router.Get("/stats/{duration:24h|7d|30d|1y|ytd|alltime}", getStats)
 
-	log.Println("Starting API server on http://localhost:8077")
-	go http.ListenAndServe(":8077", router)
+	server := &http.Server{Addr: ":8077", Handler: router}
+	go func() {
+		log.Println("Starting API server on http://localhost:8077")
+		server.ListenAndServe()
+	}()
+	go func() {
+		<-ctx.Done()
+		server.Shutdown(ctx)
+	}()
 }
 
 func corsOptions(response http.ResponseWriter, req *http.Request) {

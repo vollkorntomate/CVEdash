@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
@@ -15,6 +16,8 @@ import (
 )
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+
 	data.HTTPClient = http.Client{}
 	config.Config = config.LoadConfig("config.json")
 
@@ -22,39 +25,57 @@ func main() {
 	data.DB.InitDB()
 
 	data.ImportNewEntries()
-	api.RunAPIServer()
+	api.RunAPIServer(ctx)
 
-	MakeInterruptHandler()
+	MakeInterruptHandler(cancel)
 
-	ScheduleBackgroundTasks()
+	ScheduleBackgroundTasks(ctx)
+
+	log.Println("Bye!")
 }
 
-func MakeInterruptHandler() {
-	c := make(chan os.Signal)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+func MakeInterruptHandler(cancel context.CancelFunc) {
 	go func() {
-		<-c
-		log.Println("Bye!")
-		os.Exit(0)
+		exit := make(chan os.Signal, 1)
+		signal.Notify(exit, os.Interrupt, syscall.SIGTERM)
+
+		<-exit // wait for interrupt
+		log.Println("Shutting down...")
+		cancel()
 	}()
 }
 
-func ScheduleBackgroundTasks() {
+func ScheduleBackgroundTasks(ctx context.Context) {
 	wg := sync.WaitGroup{}
 
+	importTicker := time.NewTicker(time.Minute * time.Duration(config.Config.MinutesBetweenNVDUpdates))
+	defer importTicker.Stop()
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		for range time.Tick(time.Minute * time.Duration(config.Config.MinutesBetweenNVDUpdates)) {
-			data.ImportNewEntries()
+		for {
+			select {
+			case <-importTicker.C:
+				data.ImportNewEntries()
+			case <-ctx.Done():
+				return
+			}
 		}
 	}()
 
+	cacheUpdateTicker := time.NewTicker(time.Minute * 5)
+	defer cacheUpdateTicker.Stop()
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		for range time.Tick(time.Minute * 5) {
-			api.UpdateStateCache()
+		for {
+			select {
+			case <-cacheUpdateTicker.C:
+				api.UpdateStateCache()
+
+			case <-ctx.Done():
+				return
+			}
 		}
 	}()
 
