@@ -28,9 +28,23 @@
 </svelte:head>
 
 <div class="flex flex-col h-full">
-	<div class="flex-none bg-red-900 h-12">
-		
-	</div>
+	<nav class="relative w-full flex flex-wrap items-center justify-between py-2 bg-nav dark:bg-nav-dark text-text1-dark">
+		<div class="container-fluid w-full flex flex-wrap items-center justify-between px-6 text-xl">
+			<div>
+				<a href="/">
+					<span class="font-bold">CVEdash</span>
+				</a>
+			</div>
+			<div>
+				<a href="https://github.com/vollkorntomate/CVEdash" target="_blank" rel="nofollow noreferrer" class="ml-4">
+					<span class="text-2xl fa fa-github" title="See source on GitHub"></span>
+				</a>
+				<a href="legal" class="ml-4">
+					<span class="fa fa-balance-scale" title="Legal notes"></span>
+				</a>
+			</div>
+		</div>
+	</nav>
 	<div class="container flex mx-auto px-2 py-4 min-h-0">
 		<div class="flex flex-wrap md:flex-nowrap gap-4">
 			<div class="flex md:basis-1/2 lg:basis-2/5 order-2 md:order-1 h-screen md:h-full">

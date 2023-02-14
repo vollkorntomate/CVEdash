@@ -29,6 +29,10 @@ const config = {
 				text2: {
 					DEFAULT: colors.neutral['800'],
 					dark: colors.neutral['400']
+				},
+				nav: {
+					DEFAULT: '#7f1d1d',
+					dark: '#7f1d1d'
 				}
 			}
 		}
