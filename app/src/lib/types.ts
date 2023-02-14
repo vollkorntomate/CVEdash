@@ -4,7 +4,7 @@ export class CveSummary {
 	published: string;
 	cvssBaseScore: number;
 	cvssBaseSeverity: string;
-	cvssBaseVector: string;
+	cvssVector: string;
 	cvssSource: string;
 
 	constructor(
@@ -13,7 +13,7 @@ export class CveSummary {
 		published: string,
 		cvssBaseSeverity: string,
 		cvssBaseScore: number,
-		cvssBaseVector: string,
+		cvssVector: string,
 		cvssSource: string
 	) {
 		this.id = id;
@@ -21,7 +21,7 @@ export class CveSummary {
 		this.published = published;
 		this.cvssBaseSeverity = cvssBaseSeverity;
 		this.cvssBaseScore = cvssBaseScore;
-		this.cvssBaseVector = cvssBaseVector;
+		this.cvssVector = cvssVector;
 		this.cvssSource = cvssSource;
 	}
 }

@@ -36,7 +36,7 @@
 				{#if cve.cvssBaseScore > 0.0 && cve.cvssBaseSeverity !== ''}
 					<span
 						class="p-1 text-sm rounded-md {color}"
-						title="Vector: {cve.cvssBaseVector}&#013;Source: {cve.cvssSource}"
+						title="Vector: {cve.cvssVector}&#013;Source: {cve.cvssSource}"
 					>
 						{cve.cvssBaseScore.toFixed(1)}
 						{cve.cvssBaseSeverity}
