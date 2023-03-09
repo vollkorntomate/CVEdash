@@ -28,7 +28,8 @@
 </svelte:head>
 
 <div class="flex flex-wrap md:flex-nowrap gap-4">
-	<div class="flex md:basis-1/2 lg:basis-2/5 order-2 md:order-1"> <!-- use "h-screen md:h-full" here if wanting "double scrolling" on mobile -->
+	<div class="flex md:basis-1/2 lg:basis-2/5 order-2 md:order-1">
+		<!-- use "h-screen md:h-full" here if wanting "double scrolling" on mobile -->
 		<div class="flex flex-col dashboard-card">
 			<div class="dashboard-card-title">
 				<span>Latest published CVEs</span>

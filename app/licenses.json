@@ -1,54 +1,54 @@
 [
-    {
-        "department": "kessler",
-        "relatedTo": "stuff",
-        "name": "chart.js",
-        "licensePeriod": "perpetual",
-        "material": "material",
-        "licenseType": "MIT",
-        "link": "git+https://github.com/chartjs/Chart.js.git",
-        "remoteVersion": "4.2.1",
-        "installedVersion": "4.2.1",
-        "definedVersion": "^4.2.0",
-        "author": "n/a"
-    },
-    {
-        "department": "kessler",
-        "relatedTo": "stuff",
-        "name": "chartjs-plugin-datalabels",
-        "licensePeriod": "perpetual",
-        "material": "material",
-        "licenseType": "MIT",
-        "link": "git+https://github.com/chartjs/chartjs-plugin-datalabels.git",
-        "remoteVersion": "2.2.0",
-        "installedVersion": "2.2.0",
-        "definedVersion": "^2.2.0",
-        "author": "n/a"
-    },
-    {
-        "department": "kessler",
-        "relatedTo": "stuff",
-        "name": "moment",
-        "licensePeriod": "perpetual",
-        "material": "material",
-        "licenseType": "MIT",
-        "link": "git+https://github.com/moment/moment.git",
-        "remoteVersion": "2.29.4",
-        "installedVersion": "2.29.4",
-        "definedVersion": "^2.29.4",
-        "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)"
-    },
-    {
-        "department": "kessler",
-        "relatedTo": "stuff",
-        "name": "tw-elements",
-        "licensePeriod": "perpetual",
-        "material": "material",
-        "licenseType": "AGPL",
-        "link": "git+https://github.com/mdbootstrap/Tailwind-Elements.git",
-        "remoteVersion": "1.0.0-beta1",
-        "installedVersion": "1.0.0-beta1",
-        "definedVersion": "^1.0.0-alpha13",
-        "author": "MDBootstrap <office@mdbootstrap.com>"
-    }
+	{
+		"department": "kessler",
+		"relatedTo": "stuff",
+		"name": "chart.js",
+		"licensePeriod": "perpetual",
+		"material": "material",
+		"licenseType": "MIT",
+		"link": "git+https://github.com/chartjs/Chart.js.git",
+		"remoteVersion": "4.2.1",
+		"installedVersion": "4.2.1",
+		"definedVersion": "^4.2.0",
+		"author": "n/a"
+	},
+	{
+		"department": "kessler",
+		"relatedTo": "stuff",
+		"name": "chartjs-plugin-datalabels",
+		"licensePeriod": "perpetual",
+		"material": "material",
+		"licenseType": "MIT",
+		"link": "git+https://github.com/chartjs/chartjs-plugin-datalabels.git",
+		"remoteVersion": "2.2.0",
+		"installedVersion": "2.2.0",
+		"definedVersion": "^2.2.0",
+		"author": "n/a"
+	},
+	{
+		"department": "kessler",
+		"relatedTo": "stuff",
+		"name": "moment",
+		"licensePeriod": "perpetual",
+		"material": "material",
+		"licenseType": "MIT",
+		"link": "git+https://github.com/moment/moment.git",
+		"remoteVersion": "2.29.4",
+		"installedVersion": "2.29.4",
+		"definedVersion": "^2.29.4",
+		"author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)"
+	},
+	{
+		"department": "kessler",
+		"relatedTo": "stuff",
+		"name": "tw-elements",
+		"licensePeriod": "perpetual",
+		"material": "material",
+		"licenseType": "AGPL",
+		"link": "git+https://github.com/mdbootstrap/Tailwind-Elements.git",
+		"remoteVersion": "1.0.0-beta1",
+		"installedVersion": "1.0.0-beta1",
+		"definedVersion": "^1.0.0-alpha13",
+		"author": "MDBootstrap <office@mdbootstrap.com>"
+	}
 ]
