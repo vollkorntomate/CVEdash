@@ -18,7 +18,7 @@ go run cmd/cvedash/main.go
 
 On the first startup, the server immediately starts pulling all CVE data from NVD's API and stores it in a new SQLite database file named according to the config.
 
-⚠️ The dataset currently contains over `200,000` entries, which is approximately 1 GB of JSON data being downloaded. Due to API rate limiting, this process will take a while, so get a cup of coffee in the meantime (each request returns up to 2000 entries, so there will be a little over 100 requests with a sleep of 6 seconds (1 second if you have an API key) between each request).
+> ⚠️ The dataset currently contains over `200,000` entries, which is approximately 1 GB of JSON data being downloaded. Due to API rate limiting, this process will take a while, so get a cup of coffee in the meantime (each request returns up to 2000 entries, so there will be a little over 100 requests with a sleep of 6 seconds (1 second if you have an API key) between each request).
 
 Since much of this data is irrelevant and removed, the database file will only be around 100 MB in size.
 
