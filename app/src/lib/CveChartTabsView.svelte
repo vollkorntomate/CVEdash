@@ -24,7 +24,8 @@
 	}
 </script>
 
-<div class="bg-bg3 dark:bg-bg2-dark rounded-lg">
+
+<div class="bg-bg3 dark:bg-bg3-dark rounded-lg px-2">
 	<ul
 		class="nav nav-tabs flex flex-wrap justify-center list-none mb-4"
 		id="tabs-tab"

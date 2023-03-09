@@ -21,6 +21,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"license-report": "^6.3.0",
 		"postcss": "^8.4.14",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.0",
@@ -38,6 +39,6 @@
 		"chart.js": "^4.2.0",
 		"chartjs-plugin-datalabels": "^2.2.0",
 		"moment": "^2.29.4",
-		"tw-elements": "^1.0.0-alpha13"
+		"tw-elements": "1.0.0-alpha13"
 	}
 }

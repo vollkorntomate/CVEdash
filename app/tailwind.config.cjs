@@ -16,7 +16,7 @@ const config = {
 				},
 				bg3: {
 					DEFAULT: colors.neutral['50'],
-					dark: colors.neutral['700']
+					dark: '#323232'
 				},
 				shadow: {
 					DEFAULT: colors.neutral['400'],
