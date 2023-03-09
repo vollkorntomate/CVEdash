@@ -11,6 +11,11 @@
 			url: 'https://github.com/chartjs/chartjs-plugin-datalabels/blob/master/LICENSE.md'
 		},
 		{
+			name: 'ForkAwesome',
+			license: 'MIT',
+			url: 'https://github.com/ForkAwesome/Fork-Awesome/blob/master/LICENSES'
+		},
+		{
 			name: 'Moment.js',
 			license: 'MIT',
 			url: 'https://github.com/moment/moment/blob/develop/LICENSE'
