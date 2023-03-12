@@ -12,6 +12,7 @@ type CVEDashConfig struct {
 	NVDAPIKey                string `json:"nvdApiKey"`
 	DBFilePath               string `json:"dbFilePath"`
 	MinutesBetweenNVDUpdates uint64 `json:"minutesBetweenNVDUpdates"`
+	APIRateLimitPerMinute    uint64 `json:"apiRateLimitPerMinute"`
 }
 
 func LoadConfig(path string) CVEDashConfig {
@@ -23,7 +24,8 @@ func LoadConfig(path string) CVEDashConfig {
 	jsonConfig := CVEDashConfig{ // default values
 		NVDAPIKey:                "",
 		DBFilePath:               "cvedash-data.db",
-		MinutesBetweenNVDUpdates: 10,
+		MinutesBetweenNVDUpdates: 120,
+		APIRateLimitPerMinute:    250,
 	}
 	json.Unmarshal(contents, &jsonConfig)
 

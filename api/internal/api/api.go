@@ -8,10 +8,12 @@ import (
 	"strconv"
 	"time"
 
+	"vollkorntomate.de/cvedash-api/internal/config"
 	"vollkorntomate.de/cvedash-api/internal/data"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/httprate"
 )
 
 const apiResultsPerPage = 10
@@ -24,6 +26,7 @@ func RunAPIServer(ctx context.Context) {
 
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
+	router.Use(httprate.LimitByIP(int(config.Config.APIRateLimitPerMinute), time.Minute))
 
 	router.Options("/*", corsOptions)
 	router.Get("/latest/{page:[0-9]+}", getLatestPublishedCVEs)

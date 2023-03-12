@@ -1,5 +1,6 @@
 {
     "dbFilePath": "cvedash-data.db",
     "nvdApiKey": "Get your own: https://nvd.nist.gov/developers/request-an-api-key",
-    "minutesBetweenNVDUpdates": 120
+    "minutesBetweenNVDUpdates": 120,
+    "apiRateLimitPerMinute": 250
 }
